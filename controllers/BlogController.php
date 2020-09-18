@@ -5,11 +5,10 @@ class BlogController extends Controller
     // 文章列表
     function index()
     {
-        echo $data['message'];
         // 取的資料庫連線
         $link = include 'config.php';
         $sql = <<<mutil
-             select *, a.id articleId, u.id userId from article as a inner join user as u on a.userId = u.id;
+             select *, a.id articleId, u.id userId from article as a inner join user as u on a.userId = u.id order by(-a.id);
         mutil;
         $result = mysqli_query($link, $sql);
         return $this->view('blog/articles', ['result'=>$result]);
@@ -27,30 +26,30 @@ class BlogController extends Controller
         $title = $_POST['title'];
         $content = $_POST['content'];
         $userId = $_SESSION['userId'];
-        // $pdo = new PDO("mysql:host=localhost;dbname=blog", "root", "root");
-        // $pdo->exec("set names utf8");
-        // $cmd = $pdo->prepare("insert into article(title, content, userId)values(:title, :content, :userId)");
-        // $cmd->bindValue(":title", $title);
-        // $cmd->bindValue(":content", $content);
-        // $cmd->bindValue(":userId", $userId);
-        // $cmd->execute();
-        // echo $cmd->fetch;
+        $pdo = new PDO("mysql:host=localhost;dbname=blog", "root", "root");
+        $pdo->exec("set names utf8");
+        $cmd = $pdo->prepare("insert into article(title, content, userId)values(:title, :content, :userId)");
+        $cmd->bindValue(":title", $title);
+        $cmd->bindValue(":content", $content);
+        $cmd->bindValue(":userId", $userId);
+        $cmd->execute();
+        echo $cmd->fetch;
 
-        $sql = <<<mutil
-            insert into article(
-                title, content, userId
-            )values(
-                "$title", "$content", "$userId"
-            );
-        mutil;
-        // 取的資料庫連線
-        $link = include 'config.php';
-        if(mysqli_query($link, $sql)){
-            $_SESSION['message'] = '文章新增成功';
-            return header("Location: /blog/blog/index");
-        }else{
-            return $this->view('blog/articleCreate', ['message'=>'文章新增失敗']);
-        }
+        // $sql = <<<mutil
+        //     insert into article(
+        //         title, content, userId
+        //     )values(
+        //         "$title", "$content", "$userId"
+        //     );
+        // mutil;
+        // // 取的資料庫連線
+        // $link = include 'config.php';
+        // if(mysqli_query($link, $sql)){
+        //     $_SESSION['message'] = '文章新增成功';
+        return header("Location: /blog/blog/index");
+        // }else{
+        //     return $this->view('blog/articleCreate', ['message'=>'文章新增失敗']);
+        // }
     }
 
     // 文章修改

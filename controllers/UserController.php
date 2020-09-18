@@ -9,6 +9,11 @@ class UserController extends Controller
 
     // 登入
     function login(){
+        // require_once 'core/Smarty.class.php';
+        // $smarty = new Smarty();
+        // var_dump($smarty);
+        // $smarty->assign('name','Ned');
+        // $smarty->display();
         session_start();
         if($_SERVER['REQUEST_METHOD']==='GET'){
             return $this->view("User/login");
