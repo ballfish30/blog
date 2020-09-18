@@ -1,0 +1,61 @@
+.btn {
+    padding: 0.3em 2em;
+    border-radius: 1em;
+    text-decoration: none;
+    color: #fff;
+  }
+  
+  .btn-login {
+    max-width:10px;
+  }
+  
+  .btn-default {
+    background-color: #55acee;
+    box-shadow: 0px 3px 0px 0px #2C83C5;
+  }
+  
+  .btn-update {  
+    background-color: #f1c40f;
+    box-shadow: 0px 3px 0px 0px #D8AB00;
+  }
+  
+  .btn-new {
+    background-color: #e67e22;
+    box-shadow: 0px 3px 0px 0px #CD6509;
+  }
+  
+  .btn-submit {
+    background-color: #2ecc71;
+    box-shadow: 0px 3px 0px 0px #15B358;
+  }
+  
+  .btn-black {
+    background-color: #444;
+    box-shadow: 0px 3px 0px 0px #383838;
+  }
+  
+  .btn-red{
+    background-color: #e74c3c;
+    box-shadow: 0px 3px 0px 0px #CE3323;
+  }
+  
+  input[type=submit] {
+    margin: 0;
+    padding: 0.15em 2em;
+  }
+  
+  @media screen and (max-width: 600px) {
+  .btn{
+    padding: 0.3em 1em;
+  }
+  
+  .facebook-small{
+    box-shadow: 0px 3px 0px 0px #2B4987;
+    background-position: -15px;
+  }
+  
+  .download-small{
+    box-shadow: 0px 3px 0px 0px #CE3323;
+    background-position: -15px;
+  }
+  }

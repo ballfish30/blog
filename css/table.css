@@ -1,0 +1,29 @@
+table.readmore {
+    margin: 0 auto;
+    width: 80%;
+    margin-top: 40px;
+    text-align: left;
+  }
+  
+  th {
+    background:linear-gradient(#5db0d8,#008cbd,#028fc4);
+    color: #ffffff;
+  }
+  
+  th,tr,td{
+    padding: 1em;
+  }
+  
+  tr {
+    border-bottom: 2px solid #cccccc;
+  }
+  
+  
+  td  a {
+   /* color:#000;
+   text-decoration:none; */
+  }
+  
+  tr:hover {
+    background-color: rgba(148,163,186,0.2);
+  }
