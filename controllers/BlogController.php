@@ -70,6 +70,7 @@ class BlogController extends Controller
         mutil;
         $result = mysqli_query($link, $sql);
         $article = mysqli_fetch_assoc($result);
+        
         if($article['userId'] != $userId){
             $_SESSION['message'] = '非此文章擁有者';
             return header("Location: /blog/blog");
@@ -147,9 +148,9 @@ class BlogController extends Controller
             )
         mutil;
         if(mysqli_query($link, $sql)){
-            echo TRUE;
+            echo true;
         }else{
-            echo FALSE;
+            echo false;
         }
     }
 
@@ -195,9 +196,9 @@ class BlogController extends Controller
             delete from comment where id = $id;
         mutil;
         if(mysqli_query($link, $sql)){
-            echo TRUE;
+            echo true;
         }else{
-            echo FALSE;
+            echo false;
         }
     }
 

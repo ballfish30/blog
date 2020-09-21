@@ -169,11 +169,15 @@
   }
   
   .marginRight{
-    margin-right: 10%; 
+    margin-right: 5em; 
   }
   
   .marginRight30{
     margin-right: 30%; 
+  }
+  
+  .marginRight5 {
+    margin-right: 2%;
   }
   
   .marginLeft{
@@ -190,6 +194,10 @@
   
   .paddingTop1 {
     padding-top: 1em;
+  }
+
+  .paddingRight {
+    padding-right: 100em;
   }
   
   .lineHeight22 {
