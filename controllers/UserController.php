@@ -9,14 +9,11 @@ class UserController extends Controller
 
     // 登入
     function login(){
-        // require_once 'core/Smarty.class.php';
-        // $smarty = new Smarty();
-        // var_dump($smarty);
-        // $smarty->assign('name','Ned');
-        // $smarty->display();
         session_start();
+        //smarty
+        include 'main.php';
         if($_SERVER['REQUEST_METHOD']==='GET'){
-            return $this->view("User/login");
+            return $smarty->display('user/login.php');
         }
         // POST
         $accountName = $_POST['accountName'];
@@ -31,17 +28,18 @@ class UserController extends Controller
         $user = mysqli_fetch_assoc($result);
         // 判斷使用者
         if ($user === Null){
-            return $this->view("User/login", ['message'=>"此帳號未註冊"]);
+            $smarty->display('user/login.php');
         }
         // 判斷密碼
         elseif(!password_verify($passwd, $user['passwd'])){
             $_SESSION['message'] = '密碼錯誤';
-            return $this->view("User/login");
+            $smarty->display('user/login.php');
         }
-        $_SESSION['message'] = '登入成功';
+        $smarty->assign('message','登入成功');
         $_SESSION['userId'] = $user['id'];
         $_SESSION['userName'] = $user['userName'];
-        return header("Location: /blog/blog/index");
+        $smarty->assign('userName',$_SESSION['userName']);
+        return header("Location: /blog/blog/");
 
     }
 
@@ -50,15 +48,19 @@ class UserController extends Controller
         session_start();
         // 清除session
         session_destroy();
-        $_SESSION['message'] = '已登出';
-        return header("Location: /blog/user/login");
+        //smarty
+        include 'main.php';
+        $smarty->assign('message','已登出');
+        $smarty->display('user/login.php');
     }
 
     // 註冊
     function register(){
+        //smarty
+        include 'main.php';
         session_start();
         if($_SERVER['REQUEST_METHOD']==='GET'){
-            return $this->view("User/register");
+            return $smarty->display('user/register.php');
         }
         // POST
         $accountName = $_POST['accountName'];
@@ -73,8 +75,8 @@ class UserController extends Controller
         $user = mysqli_fetch_assoc($result);
         // 判斷使用者‘
         if ($user != Null){
-            $_SESSION['message'] = '此帳號已註冊';
-            return $this->view("User/register", ['message'=>'此帳號已註冊']);
+            $smarty->assign('message','此帳號已註冊');
+            return $smarty->display('user/register.php');
         }
         $sql = <<<mutil
           insert into user(
@@ -85,12 +87,11 @@ class UserController extends Controller
           )
         mutil;
         if(mysqli_query($link, $sql)){
-            $_SESSION['message'] = '註冊成功，請登入';
-            return header("Location: /blog/user");
+            $smarty->assign('message','註冊成功，請登入');
+            return $smarty->display('user/login.php');
         }else{
-            $_SESSION['message'] = '註冊失敗';
-            echo $sql;
-            return $this->view("User/register", ['message'=>'註冊失敗']);
+            $smarty->assign('message','註冊失敗');
+            return $smarty->display('user/register.php');
         }
     }
 

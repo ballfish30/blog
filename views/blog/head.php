@@ -17,8 +17,8 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
 </head>
 <body>
-暱稱：<?php echo $_SESSION['userName'] ?>
+暱稱：{{$userName}}
     <a class="btn btn-submit floatRight" href="/blog/user/logout">登出</a>  
-    <a class="btn btn-submit floatRight" href="/blog/blog/index">首頁</a>  
+    <a class="btn btn-submit floatRight" href="/blog/blog/index/1">首頁</a>  
 <hr>
     

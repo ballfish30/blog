@@ -1,21 +1,32 @@
-<?php
-    session_start();
-?>
-<?php require_once('head.php'); ?>
+{{include file='views/blog/head.php'}}
 <br><a class="btn btn-new" href="/blog/blog/articleCreate">新增文章</a><br><br>
 <table width=100%;>
 <tr>
     <th>標題</th><th>內容</th><th>作者</th>
 </tr>
 <main role="main" class="container bootdey.com">
-<?php while ($row = mysqli_fetch_assoc($data['result'])):?>
-<tr>
-    <td><a href="<?php if($row['userId'] == $_SESSION['userId']){echo "/blog/blog/articleUpdate/$row[articleId]";}else{echo "/blog/blog/articleRead/$row[articleId]";}?>"><?php echo $row['title'] ?></td>
-    <td><pre><?php echo "$row[content]" ?></pre></td>
-    <td width=10%><?php echo $row['userName'] ?></td>
-</tr>
-<?php endwhile?>
+{{foreach from=$articles item=article name=foo}}
+    <tr>
+        <td><a href="/blog/blog/articleRead/{{$article.articleId}}">{{$article.title}}</a></td>
+        <td><pre>{{$article.content}}</pre></td>
+        <td>{{$article.userName}}</td>
+    </tr>
+{{/foreach}}
+
 </main>
 </table>
-
-<?php require_once('footer.php'); ?>
+<nav aria-label="Page navigation example">
+  <ul class="pagination">
+  </ul>
+</nav>
+<script>
+    $(document).ready(function() {
+        $html = ''
+        console.log($(".pagination").html("<li>123</li>"));
+        for (var i=1; i<={{$count}}; i++){
+            $html += "<li class='page-item'><a class='page-link' href=/blog/blog/index/"+i+">"+i+"</a></li>"
+        }
+        $(".pagination").html($html);
+    });
+</script>
+{{include file='views/blog/footer.php'}}

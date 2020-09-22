@@ -1,10 +1,40 @@
-{{include file='views/blog/head.php'}}
-<p>標題：{{$article.title}}</p>
-<p>內容：{{$article.content}}</p>
-{{if $userId == $article.userId}}
-<p><a class="btn btn-submit floatRight" href="/blog/blog/articleUpdate/{{$article.id}}">修改文章</a></p>
-<p><a class="btn btn-submit floatRight" href="/blog/blog/articleDelete/{{$article.id}}">刪除文章</a></p>
-{{/if}}
+<?php
+/* Smarty version 3.1.34-dev-7, created on 2020-09-22 09:49:49
+  from '/Applications/MAMP/htdocs/blog/views/blog/articleRead.php' */
+
+/* @var Smarty_Internal_Template $_smarty_tpl */
+if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
+  'version' => '3.1.34-dev-7',
+  'unifunc' => 'content_5f69c8bd9f3760_90195282',
+  'has_nocache_code' => false,
+  'file_dependency' => 
+  array (
+    'f3d5b7237410da1f48baf3804b2be55a34917cbe' => 
+    array (
+      0 => '/Applications/MAMP/htdocs/blog/views/blog/articleRead.php',
+      1 => 1600768186,
+      2 => 'file',
+    ),
+  ),
+  'includes' => 
+  array (
+    'file:views/blog/head.php' => 1,
+    'file:views/blog/footer.php' => 1,
+  ),
+),false)) {
+function content_5f69c8bd9f3760_90195282 (Smarty_Internal_Template $_smarty_tpl) {
+$_smarty_tpl->_subTemplateRender('file:views/blog/head.php', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
+?>
+<p>標題：<?php echo $_smarty_tpl->tpl_vars['article']->value['title'];?>
+</p>
+<p>內容：<?php echo $_smarty_tpl->tpl_vars['article']->value['content'];?>
+</p>
+<?php if ($_smarty_tpl->tpl_vars['userId']->value == $_smarty_tpl->tpl_vars['article']->value['userId']) {?>
+<p><a class="btn btn-submit floatRight" href="/blog/blog/articleUpdate/<?php echo $_smarty_tpl->tpl_vars['article']->value['id'];?>
+">修改文章</a></p>
+<p><a class="btn btn-submit floatRight" href="/blog/blog/articleDelete/<?php echo $_smarty_tpl->tpl_vars['article']->value['id'];?>
+">刪除文章</a></p>
+<?php }?>
 <hr>
 <main role='main' class='container bootdey.com'>
 <h1>留言板：</h1>
@@ -38,12 +68,14 @@
     </div>
   </div>
 </div>
-<script>
+<?php echo '<script'; ?>
+>
 $(document).ready(function() {
     function reComment(){
         $.ajax({
             type:"POST",
-            url:"/blog/blog/commentAll/{{$article.id}}"
+            url:"/blog/blog/commentAll/<?php echo $_smarty_tpl->tpl_vars['article']->value['id'];?>
+"
         })
         .done(function(data){
             $html = "";
@@ -56,7 +88,8 @@ $(document).ready(function() {
                 $html += "      <h6 class='mb-0 text-dark lh-100'>"+comment['userName']+"</h6>"
                 $html += "      <small class='text-dark'>"+comment['content']+"</small>"
                 $html += "    </div>";
-                if ("{{$userName}}" == comment['userName']){
+                if ("<?php echo $_smarty_tpl->tpl_vars['userName']->value;?>
+" == comment['userName']){
                     $html += "    <div class='lh-100 floatLeft marginRight'><a  data-toggle='modal' data-target='#exampleModal' data-whatever="+comment['id']+" class='btn btn-submit floatRight text-white'>修改</a></div>"
                     $html += "    <div class='lh-100 floatLeft'><button class='btn btn-submit floatRight commentDelete text-white' value="+comment['id']+">刪除</button></div>"
                 }
@@ -99,7 +132,8 @@ $(document).ready(function() {
         $content = $("#commentCreate").val();
         $.ajax({
             type:"POST",
-            url:"/blog/blog/commentCreate/{{$article.id}}",
+            url:"/blog/blog/commentCreate/<?php echo $_smarty_tpl->tpl_vars['article']->value['id'];?>
+",
             data:{
                 'content' : $content
             }
@@ -136,6 +170,9 @@ $(document).ready(function() {
     });
 
 });
-</script>
+<?php echo '</script'; ?>
+>
 
-{{include file='views/blog/footer.php'}}
+<?php $_smarty_tpl->_subTemplateRender('file:views/blog/footer.php', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
+}
+}
