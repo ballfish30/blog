@@ -2,7 +2,7 @@
 <div class='alert alert-primary alert-dismissible fade show'>
   <strong>系統訊息!</strong> {{$message}}
   <button type='button' class='close' data-dismiss='alert'>&times;</button>
-</div>;
+</div>
 {{/if}}
 {{include file='views/user/head.php'}}
 <!------ Include the above in your HEAD tag ---------->

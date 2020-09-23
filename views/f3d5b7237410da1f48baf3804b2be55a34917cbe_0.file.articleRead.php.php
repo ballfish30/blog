@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.34-dev-7, created on 2020-09-22 09:49:49
+/* Smarty version 3.1.34-dev-7, created on 2020-09-23 08:45:13
   from '/Applications/MAMP/htdocs/blog/views/blog/articleRead.php' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.34-dev-7',
-  'unifunc' => 'content_5f69c8bd9f3760_90195282',
+  'unifunc' => 'content_5f6b0b195bc174_80661288',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'f3d5b7237410da1f48baf3804b2be55a34917cbe' => 
     array (
       0 => '/Applications/MAMP/htdocs/blog/views/blog/articleRead.php',
-      1 => 1600768186,
+      1 => 1600850666,
       2 => 'file',
     ),
   ),
@@ -22,7 +22,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:views/blog/footer.php' => 1,
   ),
 ),false)) {
-function content_5f69c8bd9f3760_90195282 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5f6b0b195bc174_80661288 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_subTemplateRender('file:views/blog/head.php', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
 ?>
 <p>標題：<?php echo $_smarty_tpl->tpl_vars['article']->value['title'];?>
@@ -90,7 +90,7 @@ $(document).ready(function() {
                 $html += "    </div>";
                 if ("<?php echo $_smarty_tpl->tpl_vars['userName']->value;?>
 " == comment['userName']){
-                    $html += "    <div class='lh-100 floatLeft marginRight'><a  data-toggle='modal' data-target='#exampleModal' data-whatever="+comment['id']+" class='btn btn-submit floatRight text-white'>修改</a></div>"
+                    $html += "    <div class='lh-100 floatLeft marginRight'><a  data-toggle='modal' data-target='#exampleModal' data-whatever="+comment['id']+" data-content="+comment['content']+" class='btn btn-submit floatRight text-white'>修改</a></div>"
                     $html += "    <div class='lh-100 floatLeft'><button class='btn btn-submit floatRight commentDelete text-white' value="+comment['id']+">刪除</button></div>"
                 }
                 $html += "    </div>";
@@ -120,14 +120,15 @@ $(document).ready(function() {
         var recipient = button.data('whatever') // Extract info from data-* attributes
         // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
         // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-        var modal = $(this)
-        modal.find('#commentId').val(recipient)
+        var modal = $(this);
+        modal.find('#commentId').val(recipient);
+        modal.find('#message-text').val(button.data('content'));
     })
 
     reComment();
-    setInterval(function(){
-        reComment();
-    },4000)
+    // setInterval(function(){
+    //     reComment();
+    // },4000)
     $("#commentSend").on("mousedown", function(){
         $content = $("#commentCreate").val();
         $.ajax({

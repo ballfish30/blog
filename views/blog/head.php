@@ -17,6 +17,12 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
 </head>
 <body>
+{{if $message}}
+<div class='alert alert-primary alert-dismissible fade show'>
+  <strong>系統訊息!</strong> {{$message}}
+  <button type='button' class='close' data-dismiss='alert'>&times;</button>
+</div>
+{{/if}}
 暱稱：{{$userName}}
     <a class="btn btn-submit floatRight" href="/blog/user/logout">登出</a>  
     <a class="btn btn-submit floatRight" href="/blog/blog/index/1">首頁</a>  

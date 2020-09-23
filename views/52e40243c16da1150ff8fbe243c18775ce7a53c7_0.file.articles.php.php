@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.34-dev-7, created on 2020-09-22 09:03:20
+/* Smarty version 3.1.34-dev-7, created on 2020-09-23 06:59:41
   from '/Applications/MAMP/htdocs/blog/views/blog/articles.php' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.34-dev-7',
-  'unifunc' => 'content_5f69bdd8c40a88_39380798',
+  'unifunc' => 'content_5f6af25da47c31_64961021',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '52e40243c16da1150ff8fbe243c18775ce7a53c7' => 
     array (
       0 => '/Applications/MAMP/htdocs/blog/views/blog/articles.php',
-      1 => 1600765397,
+      1 => 1600844364,
       2 => 'file',
     ),
   ),
@@ -22,8 +22,15 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:views/blog/footer.php' => 1,
   ),
 ),false)) {
-function content_5f69bdd8c40a88_39380798 (Smarty_Internal_Template $_smarty_tpl) {
-$_smarty_tpl->_subTemplateRender('file:views/blog/head.php', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
+function content_5f6af25da47c31_64961021 (Smarty_Internal_Template $_smarty_tpl) {
+?><!-- <?php if ($_smarty_tpl->tpl_vars['message']->value) {?>
+<div class='alert alert-primary alert-dismissible fade show'>
+  <strong>系統訊息!</strong> <?php echo $_smarty_tpl->tpl_vars['message']->value;?>
+
+  <button type='button' class='close' data-dismiss='alert'>&times;</button>
+</div>
+<?php }?> -->
+<?php $_smarty_tpl->_subTemplateRender('file:views/blog/head.php', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
 ?>
 <br><a class="btn btn-new" href="/blog/blog/articleCreate">新增文章</a><br><br>
 <table width=100%;>

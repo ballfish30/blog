@@ -1,3 +1,9 @@
+<!-- {{if $message}}
+<div class='alert alert-primary alert-dismissible fade show'>
+  <strong>系統訊息!</strong> {{$message}}
+  <button type='button' class='close' data-dismiss='alert'>&times;</button>
+</div>
+{{/if}} -->
 {{include file='views/blog/head.php'}}
 <br><a class="btn btn-new" href="/blog/blog/articleCreate">新增文章</a><br><br>
 <table width=100%;>

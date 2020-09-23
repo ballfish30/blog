@@ -11,7 +11,7 @@ create table Article(
     title varchar(25) not null,
     content varchar(120) not null,
     userId int(11) not null,
-    CONSTRAINT fk_articleUser_id FOREIGN KEY (userId) REFERENCES User(id) 
+    CONSTRAINT fk_articleUser_id FOREIGN KEY (userId) REFERENCES User(id) ON DELETE CASCADE
 );
 
 create table comment(
@@ -19,6 +19,6 @@ create table comment(
     content varchar(150) not null,
     userId int(11) not null,
     articleId int(11) not null,
-    CONSTRAINT fk_article_id FOREIGN KEY (articleId) REFERENCES Article(id),
+    CONSTRAINT fk_article_id FOREIGN KEY (articleId) REFERENCES Article(id) ON DELETE CASCADE,
     CONSTRAINT fk_commentUser_id FOREIGN KEY (userId) REFERENCES User(id)
 );

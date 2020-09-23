@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.34-dev-7, created on 2020-09-22 08:26:13
+/* Smarty version 3.1.34-dev-7, created on 2020-09-23 08:26:51
   from '/Applications/MAMP/htdocs/blog/views/blog/head.php' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.34-dev-7',
-  'unifunc' => 'content_5f69b5250b10d7_83557910',
+  'unifunc' => 'content_5f6b06cbb4f697_40166241',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '3d9deac1ce9b83908da4e8c169c295c677a78a70' => 
     array (
       0 => '/Applications/MAMP/htdocs/blog/views/blog/head.php',
-      1 => 1600763159,
+      1 => 1600849609,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5f69b5250b10d7_83557910 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5f6b06cbb4f697_40166241 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -50,6 +50,13 @@ function content_5f69b5250b10d7_83557910 (Smarty_Internal_Template $_smarty_tpl)
 >
 </head>
 <body>
+<?php if ($_smarty_tpl->tpl_vars['message']->value) {?>
+<div class='alert alert-primary alert-dismissible fade show'>
+  <strong>系統訊息!</strong> <?php echo $_smarty_tpl->tpl_vars['message']->value;?>
+
+  <button type='button' class='close' data-dismiss='alert'>&times;</button>
+</div>
+<?php }?>
 暱稱：<?php echo $_smarty_tpl->tpl_vars['userName']->value;?>
 
     <a class="btn btn-submit floatRight" href="/blog/user/logout">登出</a>  

@@ -9,7 +9,9 @@ class UserController extends Controller
 
     // 登入
     function login(){
-        session_start();
+        if (!isset($_SESSION)) {
+            session_start();
+        }
         //smarty
         include 'main.php';
         if($_SERVER['REQUEST_METHOD']==='GET'){
@@ -28,24 +30,26 @@ class UserController extends Controller
         $user = mysqli_fetch_assoc($result);
         // 判斷使用者
         if ($user === Null){
-            $smarty->display('user/login.php');
+            $smarty->assign('message','無使用者');
+            return $smarty->display('user/login.php');
         }
         // 判斷密碼
         elseif(!password_verify($passwd, $user['passwd'])){
             $_SESSION['message'] = '密碼錯誤';
-            $smarty->display('user/login.php');
+            return $smarty->display('user/login.php');
         }
-        $smarty->assign('message','登入成功');
         $_SESSION['userId'] = $user['id'];
         $_SESSION['userName'] = $user['userName'];
         $smarty->assign('userName',$_SESSION['userName']);
-        return header("Location: /blog/blog/");
+        return header("Location: /blog/blog/index/1");
 
     }
 
     // 登出
     function logout(){
-        session_start();
+        if (!isset($_SESSION)) {
+            session_start();
+        }
         // 清除session
         session_destroy();
         //smarty
@@ -58,7 +62,9 @@ class UserController extends Controller
     function register(){
         //smarty
         include 'main.php';
-        session_start();
+        if (!isset($_SESSION)) {
+            session_start();
+        }
         if($_SERVER['REQUEST_METHOD']==='GET'){
             return $smarty->display('user/register.php');
         }
@@ -72,6 +78,7 @@ class UserController extends Controller
         $sql = <<<mutil
             select * from user where accountName="$accountName"
         mutil;
+        $result = mysqli_query($link, $sql);
         $user = mysqli_fetch_assoc($result);
         // 判斷使用者‘
         if ($user != Null){

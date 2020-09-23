@@ -1,11 +1,11 @@
 <?php
-/* Smarty version 3.1.34-dev-7, created on 2020-09-22 03:45:32
+/* Smarty version 3.1.34-dev-7, created on 2020-09-23 06:08:03
   from '/Applications/MAMP/htdocs/blog/views/user/head.php' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.34-dev-7',
-  'unifunc' => 'content_5f69735c52f3c4_29904653',
+  'unifunc' => 'content_5f6ae6433ac437_04738021',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5f69735c52f3c4_29904653 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5f6ae6433ac437_04738021 (Smarty_Internal_Template $_smarty_tpl) {
 ?><link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <link rel="stylesheet" href="/blog/css/user.css">
 <?php echo '<script'; ?>

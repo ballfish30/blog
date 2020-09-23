@@ -57,7 +57,7 @@ $(document).ready(function() {
                 $html += "      <small class='text-dark'>"+comment['content']+"</small>"
                 $html += "    </div>";
                 if ("{{$userName}}" == comment['userName']){
-                    $html += "    <div class='lh-100 floatLeft marginRight'><a  data-toggle='modal' data-target='#exampleModal' data-whatever="+comment['id']+" class='btn btn-submit floatRight text-white'>修改</a></div>"
+                    $html += "    <div class='lh-100 floatLeft marginRight'><a  data-toggle='modal' data-target='#exampleModal' data-whatever="+comment['id']+" data-content="+comment['content']+" class='btn btn-submit floatRight text-white'>修改</a></div>"
                     $html += "    <div class='lh-100 floatLeft'><button class='btn btn-submit floatRight commentDelete text-white' value="+comment['id']+">刪除</button></div>"
                 }
                 $html += "    </div>";
@@ -87,14 +87,15 @@ $(document).ready(function() {
         var recipient = button.data('whatever') // Extract info from data-* attributes
         // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
         // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-        var modal = $(this)
-        modal.find('#commentId').val(recipient)
+        var modal = $(this);
+        modal.find('#commentId').val(recipient);
+        modal.find('#message-text').val(button.data('content'));
     })
 
     reComment();
-    setInterval(function(){
-        reComment();
-    },4000)
+    // setInterval(function(){
+    //     reComment();
+    // },4000)
     $("#commentSend").on("mousedown", function(){
         $content = $("#commentCreate").val();
         $.ajax({
