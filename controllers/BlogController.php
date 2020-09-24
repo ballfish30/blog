@@ -17,8 +17,8 @@ class BlogController extends Controller
         } else {
             $min = ($pag - 1) * 3;
         }
-        //smarty
-        include 'main.php';
+        // //smarty
+        $smarty = $this->smarty();
         $sql = <<<mutil
              select *, a.id articleId, u.id userId from article as a inner join user as u on a.userId = u.id order by(-a.id) LIMIT $min, 3;
         mutil;
@@ -38,9 +38,8 @@ class BlogController extends Controller
     // 文章新增
     function articleCreate()
     {
-        
         //smarty
-        include 'main.php';
+        $smarty = $this->smarty();
         $title = $_POST['title'];
         $content = $_POST['content'];
         $smarty->assign('title', $title);
@@ -58,6 +57,7 @@ class BlogController extends Controller
             $smarty->assign('message', '內容格式錯誤');
             return $smarty->display('blog/articleCreate.php');
         }
+        $pdo = $this->pdo();
         $userId = $_SESSION['userId'];
         $cmd = $pdo->prepare("insert into article(title, content, userId)values(:title, :content, :userId)");
         $cmd->bindValue(":title", htmlspecialchars($title));
@@ -73,11 +73,8 @@ class BlogController extends Controller
     // 文章修改
     function articleUpdate($id)
     {
-        if (!isset($_SESSION)) {
-            session_start();
-        }
         //smarty
-        include 'main.php';
+        $smarty = $this->smarty();
         $smarty->assign('userName', $_SESSION['userName']);
         $smarty->assign('id', $id);
         $smarty->assign('pag', $_SESSION['pag']);
@@ -96,13 +93,13 @@ class BlogController extends Controller
         }
         $userId = $_SESSION['userId'];
         // 取的資料庫連線
-        $link = include 'config.php';
+        $link = $this->sql_connect();
         $sql = <<<mutil
             select * from article where id = "$id";
         mutil;
         $result = mysqli_query($link, $sql);
         $article = mysqli_fetch_assoc($result);
-
+        $pdo = $this->pdo();
         if ($article['userId'] != $userId) {
             return header("Location: /blog/blog/index/1");
         } else {
@@ -123,11 +120,8 @@ class BlogController extends Controller
     // 文章閱讀
     function articleRead($id)
     {
-        if (!isset($_SESSION)) {
-            session_start();
-        }
         //smarty
-        include 'main.php';
+        $smarty = $this->smarty();
         $link = include 'config.php';
         $sql = <<<mutil
             select * from article where id = "$id";
@@ -145,21 +139,17 @@ class BlogController extends Controller
     function articleDelete($id)
     {
         // 取的資料庫連線
-        $link = include 'config.php';
+        $link = $this->sql_connect();
         $sql = <<<mutil
             delete from article where id = $id;
         mutil;
-        if (mysqli_query($link, $sql)) {
-            return header("Location: /blog/blog/index/1");
-        } else {
-            return header("Location: /blog/blog/index/1");
-        }
+        return (mysqli_query($link, $sql))?(header("Location: /blog/blog/index/1")):header("Location: /blog/blog/index/1");
     }
 
     function commentAll($id)
     {
         // 取的資料庫連線
-        $link = include 'config.php';
+        $link = $this->sql_connect();
         $comments = array();
         $sql = <<<mutil
             select content, userName, c.id from comment as c inner join user as u where articleId = "$id" and c.userid = u.id order by(-c.id);
@@ -174,34 +164,30 @@ class BlogController extends Controller
     // 留言新增
     function commentCreate($id)
     {
-        if (!isset($_SESSION)) {
-            session_start();
-        }
         // POST
         $content = $_POST['content'];
         //smarty
-        include 'main.php';
+        $smarty = $this->smarty();
         if ($content === '') {
             echo false;
             return;
         }
         $userId = $_SESSION['userId'];
+        $pdo = $this->pdo();
         $cmd = $pdo->prepare("insert into comment(content, userId, articleId)values(:content, :userId, :id)");
         $cmd->bindValue(":content", htmlspecialchars($content));
         $cmd->bindValue(":userId", $userId);
         $cmd->bindValue(":id", $id);
-        if ($cmd->execute()) {
-            echo true;
-        } else {
-            echo false;
-        }
+        echo (($cmd->execute())?(true):(false));
     }
 
     // 留言修改
     function commentUpdate($id)
     {
         //smarty
-        include 'main.php';
+        $smarty = $this->smarty();
+        // 取的資料庫連線
+        $link = $this->sql_connect();
         if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             return $this->view("blog/commentUpdate");
         }
@@ -214,14 +200,11 @@ class BlogController extends Controller
         $result = mysqli_query($link, $sql);
         $comment = mysqli_fetch_assoc($result);
         if ($comment['userId'] = $userId) {
+            $pdo = $this->pdo();
             $cmd = $pdo->prepare("update comment set content = :content where id = :id;");
             $cmd->bindValue(":content", $content);
             $cmd->bindValue(":id", $id);
-            if ($cmd->execute()) {
-                echo true;
-            } else {
-                echo false;
-            }
+            echo (($cmd->execute())?(true):(false));
         } else {
             echo false;
         };
@@ -231,14 +214,14 @@ class BlogController extends Controller
     function commentDelete($id)
     {
         // 取的資料庫連線
-        $link = include 'config.php';
+        $link = $this->sql_connect();
         $sql = <<<mutil
             delete from comment where id = $id;
         mutil;
-        if (mysqli_query($link, $sql)) {
-            return true;
-        } else {
-            return true;
-        }
+        echo ((mysqli_query($link, $sql))?(true):(false));
+    }
+
+    function test(){
+        $this->index(1);
     }
 }
