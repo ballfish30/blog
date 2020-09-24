@@ -23,12 +23,16 @@
     <ul class="pagination">
     </ul>
 </nav>
-<<script>
+<script>
     $(document).ready(function() {
-        $html = ''
-        console.log($(".pagination").html("<li>123</li>"));
-        for (var i=1; i<={{$count}}; i++){
-            $html += "<li class='page-item'><a class='page-link' href=/blog/blog/index/"+i+">"+i+"</a></li>"
+        $html = '';
+        console.log('{{$pag}}')
+        for (var i=1; i<="{{$count}}"; i++){
+            if('{{$pag}}' == i){
+                $html += "<li class='page-item active'><a class='page-link' href=/blog/blog/index/"+i+">"+i+"</a></li>";
+            }else{
+                $html += "<li class='page-item'><a class='page-link' href=/blog/blog/index/"+i+">"+i+"</a></li>"
+            }
         }
         $(".pagination").html($html);
     });

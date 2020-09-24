@@ -4,18 +4,21 @@ class BlogController extends Controller
     // 文章列表
     function index($pag = 1)
     {
-        if ($pag <= 1) {
+        // 取的資料庫連線
+        $link = $this->sql_connect();
+        $sql = <<<mutil
+            select count(*) from article;
+        mutil;
+        $result = mysqli_query($link, $sql);
+        $count = $result->fetch_assoc();
+        $count = floor($count['count(*)'] / 3);
+        if ($pag <= 1 or $pag > $count) {
             $min = 0;
         } else {
             $min = ($pag - 1) * 3;
         }
-        if (!isset($_SESSION)) {
-            session_start();
-        }
         //smarty
         include 'main.php';
-        // 取的資料庫連線
-        $link = include 'config.php';
         $sql = <<<mutil
              select *, a.id articleId, u.id userId from article as a inner join user as u on a.userId = u.id order by(-a.id) LIMIT $min, 3;
         mutil;
@@ -24,12 +27,8 @@ class BlogController extends Controller
         while ($row = $result->fetch_assoc()) {
             array_push($articles, $row);
         }
-        $sql = <<<mutil
-            select count(*) from article;
-        mutil;
-        $result = mysqli_query($link, $sql);
-        $count = $result->fetch_assoc();
-        $count = floor($count['count(*)'] / 3);
+        $_SESSION['pag'] = $pag;
+        $smarty->assign('pag', $_SESSION['pag']);
         $smarty->assign('articles', $articles);
         $smarty->assign('count', $count);
         $smarty->assign('userName', $_SESSION['userName']);
@@ -39,9 +38,7 @@ class BlogController extends Controller
     // 文章新增
     function articleCreate()
     {
-        if (!isset($_SESSION)) {
-            session_start();
-        }
+        
         //smarty
         include 'main.php';
         $title = $_POST['title'];
@@ -49,6 +46,7 @@ class BlogController extends Controller
         $smarty->assign('title', $title);
         $smarty->assign('content', $content);
         $smarty->assign('userName', $_SESSION['userName']);
+        $smarty->assign('pag', $_SESSION['pag']);
         if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             return $smarty->display('blog/articleCreate.php');
         }
@@ -82,6 +80,7 @@ class BlogController extends Controller
         include 'main.php';
         $smarty->assign('userName', $_SESSION['userName']);
         $smarty->assign('id', $id);
+        $smarty->assign('pag', $_SESSION['pag']);
         if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             return $smarty->display('blog/articleUpdate.php');
         }
@@ -133,6 +132,7 @@ class BlogController extends Controller
         $sql = <<<mutil
             select * from article where id = "$id";
         mutil;
+        $smarty->assign('pag', $_SESSION['pag']);
         $result = mysqli_query($link, $sql);
         $article = mysqli_fetch_assoc($result);
         $smarty->assign('article', $article);
@@ -200,9 +200,6 @@ class BlogController extends Controller
     // 留言修改
     function commentUpdate($id)
     {
-        if (!isset($_SESSION)) {
-            session_start();
-        }
         //smarty
         include 'main.php';
         if ($_SERVER['REQUEST_METHOD'] === 'GET') {
@@ -221,12 +218,12 @@ class BlogController extends Controller
             $cmd->bindValue(":content", $content);
             $cmd->bindValue(":id", $id);
             if ($cmd->execute()) {
-                return true;
+                echo true;
             } else {
-                return false;
+                echo false;
             }
         } else {
-            return false;
+            echo false;
         };
     }
 
@@ -239,9 +236,9 @@ class BlogController extends Controller
             delete from comment where id = $id;
         mutil;
         if (mysqli_query($link, $sql)) {
-            echo true;
+            return true;
         } else {
-            echo false;
+            return true;
         }
     }
 }

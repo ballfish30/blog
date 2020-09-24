@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.34-dev-7, created on 2020-09-23 10:16:19
+/* Smarty version 3.1.34-dev-7, created on 2020-09-24 06:43:52
   from '/Applications/MAMP/htdocs/blog/views/blog/articleRead.php' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.34-dev-7',
-  'unifunc' => 'content_5f6b2073cc0778_03995944',
+  'unifunc' => 'content_5f6c40286a3716_02833172',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'f3d5b7237410da1f48baf3804b2be55a34917cbe' => 
     array (
       0 => '/Applications/MAMP/htdocs/blog/views/blog/articleRead.php',
-      1 => 1600856177,
+      1 => 1600929829,
       2 => 'file',
     ),
   ),
@@ -22,13 +22,17 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:views/blog/footer.php' => 1,
   ),
 ),false)) {
-function content_5f6b2073cc0778_03995944 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5f6c40286a3716_02833172 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_subTemplateRender('file:views/blog/head.php', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
 ?>
+<p><a class="btn btn-submit floatRight" href="/blog/blog/index/<?php echo $_smarty_tpl->tpl_vars['pag']->value;?>
+">返回</a></p>
 <p>標題：<?php echo $_smarty_tpl->tpl_vars['article']->value['title'];?>
 </p>
-<p>內容：<pre><?php echo $_smarty_tpl->tpl_vars['article']->value['content'];?>
-</pre></p>
+<p>內容：
+    <pre><?php echo $_smarty_tpl->tpl_vars['article']->value['content'];?>
+</pre>
+</p>
 <?php if ($_smarty_tpl->tpl_vars['userId']->value == $_smarty_tpl->tpl_vars['article']->value['userId']) {?>
 <p><a class="btn btn-submit floatRight" href="/blog/blog/articleUpdate/<?php echo $_smarty_tpl->tpl_vars['article']->value['id'];?>
 ">修改文章</a></p>
@@ -160,6 +164,7 @@ $_smarty_tpl->_subTemplateRender('file:views/blog/head.php', $_smarty_tpl->cache
                     }
                 })
                 .done(function(data) {
+                    console.log(data);
                     if (data) {
                         $('#exampleModal').find('#message-text').val("");
                         $('#exampleModal').modal('hide');

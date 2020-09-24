@@ -1,4 +1,5 @@
 {{include file='views/blog/head.php'}}
+<p><a class="btn btn-submit floatRight" href="/blog/blog/index/{{$pag}}">返回</a></p>
 <p>標題：{{$article.title}}</p>
 <p>內容：
     <pre>{{$article.content}}</pre>
@@ -128,6 +129,7 @@
                     }
                 })
                 .done(function(data) {
+                    console.log(data);
                     if (data) {
                         $('#exampleModal').find('#message-text').val("");
                         $('#exampleModal').modal('hide');

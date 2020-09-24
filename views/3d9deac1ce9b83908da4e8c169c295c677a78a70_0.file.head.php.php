@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.34-dev-7, created on 2020-09-23 08:26:51
+/* Smarty version 3.1.34-dev-7, created on 2020-09-24 06:37:35
   from '/Applications/MAMP/htdocs/blog/views/blog/head.php' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.34-dev-7',
-  'unifunc' => 'content_5f6b06cbb4f697_40166241',
+  'unifunc' => 'content_5f6c3eaf1f5266_05440221',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '3d9deac1ce9b83908da4e8c169c295c677a78a70' => 
     array (
       0 => '/Applications/MAMP/htdocs/blog/views/blog/head.php',
-      1 => 1600849609,
+      1 => 1600929442,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5f6b06cbb4f697_40166241 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5f6c3eaf1f5266_05440221 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -60,7 +60,8 @@ function content_5f6b06cbb4f697_40166241 (Smarty_Internal_Template $_smarty_tpl)
 暱稱：<?php echo $_smarty_tpl->tpl_vars['userName']->value;?>
 
     <a class="btn btn-submit floatRight" href="/blog/user/logout">登出</a>  
-    <a class="btn btn-submit floatRight" href="/blog/blog/index/1">首頁</a>  
+    <a class="btn btn-submit floatRight" href="/blog/blog/index/<?php echo $_smarty_tpl->tpl_vars['pag']->value;?>
+">首頁</a>  
 <hr>
     
 <?php }

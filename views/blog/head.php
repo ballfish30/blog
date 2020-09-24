@@ -25,6 +25,6 @@
 {{/if}}
 暱稱：{{$userName}}
     <a class="btn btn-submit floatRight" href="/blog/user/logout">登出</a>  
-    <a class="btn btn-submit floatRight" href="/blog/blog/index/1">首頁</a>  
+    <a class="btn btn-submit floatRight" href="/blog/blog/index/{{$pag}}">首頁</a>  
 <hr>
     

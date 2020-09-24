@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.34-dev-7, created on 2020-09-24 01:09:12
+/* Smarty version 3.1.34-dev-7, created on 2020-09-24 07:22:53
   from '/Applications/MAMP/htdocs/blog/views/blog/articles.php' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.34-dev-7',
-  'unifunc' => 'content_5f6bf1b8b9d747_39337741',
+  'unifunc' => 'content_5f6c494df3ffc4_87507384',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '52e40243c16da1150ff8fbe243c18775ce7a53c7' => 
     array (
       0 => '/Applications/MAMP/htdocs/blog/views/blog/articles.php',
-      1 => 1600909694,
+      1 => 1600932171,
       2 => 'file',
     ),
   ),
@@ -22,7 +22,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:views/blog/footer.php' => 1,
   ),
 ),false)) {
-function content_5f6bf1b8b9d747_39337741 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5f6c494df3ffc4_87507384 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_subTemplateRender('file:views/blog/head.php', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
 ?>
 <br><a class="btn btn-new" href="/blog/blog/articleCreate">新增文章</a><br><br>
@@ -64,11 +64,17 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
 <?php echo '<script'; ?>
 >
     $(document).ready(function() {
-        $html = ''
-        console.log($(".pagination").html("<li>123</li>"));
-        for (var i = 1; i <= <?php echo $_smarty_tpl->tpl_vars['count']->value;?>
-; i++) {
-            $html += "<li class='page-item'><a class='page-link' href=/blog/blog/index/" + i + ">" + i + "</a></li>"
+        $html = '';
+        console.log('<?php echo $_smarty_tpl->tpl_vars['pag']->value;?>
+')
+        for (var i=1; i<="<?php echo $_smarty_tpl->tpl_vars['count']->value;?>
+"; i++){
+            if('<?php echo $_smarty_tpl->tpl_vars['pag']->value;?>
+' == i){
+                $html += "<li class='page-item active'><a class='page-link' href=/blog/blog/index/"+i+">"+i+"</a></li>";
+            }else{
+                $html += "<li class='page-item'><a class='page-link' href=/blog/blog/index/"+i+">"+i+"</a></li>"
+            }
         }
         $(".pagination").html($html);
     });

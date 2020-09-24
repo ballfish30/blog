@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.34-dev-7, created on 2020-09-23 09:38:21
+/* Smarty version 3.1.34-dev-7, created on 2020-09-24 06:39:34
   from '/Applications/MAMP/htdocs/blog/views/blog/articleCreate.php' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.34-dev-7',
-  'unifunc' => 'content_5f6b178d757fc9_41167879',
+  'unifunc' => 'content_5f6c3f26975ca3_28944036',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'f74f38de78d962dea863e858b2dbb9a5f02365e5' => 
     array (
       0 => '/Applications/MAMP/htdocs/blog/views/blog/articleCreate.php',
-      1 => 1600853525,
+      1 => 1600929510,
       2 => 'file',
     ),
   ),
@@ -22,7 +22,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:views/blog/footer.php' => 1,
   ),
 ),false)) {
-function content_5f6b178d757fc9_41167879 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5f6c3f26975ca3_28944036 (Smarty_Internal_Template $_smarty_tpl) {
 if ($_smarty_tpl->tpl_vars['message']->value) {?>
 <div class='alert alert-primary alert-dismissible fade show'>
   <strong>系統訊息!</strong> <?php echo $_smarty_tpl->tpl_vars['message']->value;?>
@@ -38,6 +38,8 @@ $_smarty_tpl->_subTemplateRender('file:views/blog/head.php', $_smarty_tpl->cache
   內容：<textarea rows="5" cols="50" name="content" required="required"><?php echo $_smarty_tpl->tpl_vars['content']->value;?>
 </textarea><br><br>
   <input type="submit" value="建立文章">
+  <p><a class="btn btn-submit floatLeft" href="/blog/blog/index/<?php echo $_smarty_tpl->tpl_vars['pag']->value;?>
+">返回</a></p>
 </form>
 <?php $_smarty_tpl->_subTemplateRender('file:views/blog/footer.php', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
 }
