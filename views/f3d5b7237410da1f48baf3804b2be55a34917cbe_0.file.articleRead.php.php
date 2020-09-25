@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.34-dev-7, created on 2020-09-24 06:43:52
+/* Smarty version 3.1.34-dev-7, created on 2020-09-25 02:09:55
   from '/Applications/MAMP/htdocs/blog/views/blog/articleRead.php' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.34-dev-7',
-  'unifunc' => 'content_5f6c40286a3716_02833172',
+  'unifunc' => 'content_5f6d5173754a45_52883948',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'f3d5b7237410da1f48baf3804b2be55a34917cbe' => 
     array (
       0 => '/Applications/MAMP/htdocs/blog/views/blog/articleRead.php',
-      1 => 1600929829,
+      1 => 1600999792,
       2 => 'file',
     ),
   ),
@@ -22,7 +22,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:views/blog/footer.php' => 1,
   ),
 ),false)) {
-function content_5f6c40286a3716_02833172 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5f6d5173754a45_52883948 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_subTemplateRender('file:views/blog/head.php', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
 ?>
 <p><a class="btn btn-submit floatRight" href="/blog/blog/index/<?php echo $_smarty_tpl->tpl_vars['pag']->value;?>
@@ -36,7 +36,7 @@ $_smarty_tpl->_subTemplateRender('file:views/blog/head.php', $_smarty_tpl->cache
 <?php if ($_smarty_tpl->tpl_vars['userId']->value == $_smarty_tpl->tpl_vars['article']->value['userId']) {?>
 <p><a class="btn btn-submit floatRight" href="/blog/blog/articleUpdate/<?php echo $_smarty_tpl->tpl_vars['article']->value['id'];?>
 ">修改文章</a></p>
-<p><a class="btn btn-submit floatRight" href="/blog/blog/articleDelete/<?php echo $_smarty_tpl->tpl_vars['article']->value['id'];?>
+<p><a class="btn btn-submit floatRight articleDelete" href="/blog/blog/articleDelete/<?php echo $_smarty_tpl->tpl_vars['article']->value['id'];?>
 ">刪除文章</a></p>
 <?php }?>
 <hr>
@@ -101,9 +101,11 @@ $_smarty_tpl->_subTemplateRender('file:views/blog/head.php', $_smarty_tpl->cache
                         $html += "</main>"
                     }
                     $("#comment").html($html);
+                    
                     $(".commentDelete").on("mousedown", function() {
                         $this = $(this);
-                        $.ajax({
+                        if (confirm("是否刪除")){
+                            $.ajax({
                                 type: "GET",
                                 url: "/blog/blog/commentDelete/" + $this.val(),
                             })
@@ -114,10 +116,21 @@ $_smarty_tpl->_subTemplateRender('file:views/blog/head.php', $_smarty_tpl->cache
                                     alert('修改失敗')
                                 }
                             });
-                        return false;
+                        }else{
+                            return false;
+                        }
+                        
                     });
                 })
         }
+
+        $(".articleDelete").on("mousedown", function() {
+            $this = $(this);
+            if (!confirm("是否刪除")){
+                return false;
+            }
+            window.location = $this.attr('href');
+        });
 
         $('#exampleModal').on('show.bs.modal', function(event) {
             var button = $(event.relatedTarget) // Button that triggered the modal

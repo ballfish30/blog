@@ -1,6 +1,7 @@
 <?php
 class BlogController extends Controller
 {
+
     // 文章列表
     function index($pag = 1)
     {
@@ -11,16 +12,18 @@ class BlogController extends Controller
         mutil;
         $result = mysqli_query($link, $sql);
         $count = $result->fetch_assoc();
-        $count = floor($count['count(*)'] / 3);
+        //筆數
+        $num = 2;
+        $count = floor($count['count(*)'] / $num);
         if ($pag <= 1 or $pag > $count) {
             $min = 0;
         } else {
-            $min = ($pag - 1) * 3;
+            $min = ($pag - 1) * $num;
         }
         // //smarty
         $smarty = $this->smarty();
         $sql = <<<mutil
-             select *, a.id articleId, u.id userId from article as a inner join user as u on a.userId = u.id order by(-a.id) LIMIT $min, 3;
+             select *, a.id articleId, u.id userId from article as a inner join user as u on a.userId = u.id order by(-a.id) LIMIT $min, $num;
         mutil;
         $result = mysqli_query($link, $sql);
         $articles = array();
@@ -78,20 +81,6 @@ class BlogController extends Controller
         $smarty->assign('userName', $_SESSION['userName']);
         $smarty->assign('id', $id);
         $smarty->assign('pag', $_SESSION['pag']);
-        if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-            return $smarty->display('blog/articleUpdate.php');
-        }
-        // POST
-        $title = htmlspecialchars($_POST['title']);
-        $content = htmlspecialchars($_POST['content']);
-        if ($title === "") {
-            $smarty->assign('message', '標題錯誤');
-            return $smarty->display('blog/articleUpdate.php');
-        } else if ($content === "") {
-            $smarty->assign('message', '內容格式錯誤');
-            return $smarty->display('blog/articleUpdate.php');
-        }
-        $userId = $_SESSION['userId'];
         // 取的資料庫連線
         $link = $this->sql_connect();
         $sql = <<<mutil
@@ -99,6 +88,24 @@ class BlogController extends Controller
         mutil;
         $result = mysqli_query($link, $sql);
         $article = mysqli_fetch_assoc($result);
+        if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+            $smarty->assign('content', $article['content']);
+            $smarty->assign('title', $article['title']);
+            return $smarty->display('blog/articleUpdate.php');
+        }
+        // POST
+        $title = htmlspecialchars($_POST['title']);
+        $content = htmlspecialchars($_POST['content']);
+        if ($title === "") {
+            $smarty->assign('content', $content);
+            $smarty->assign('message', '標題錯誤');
+            return $smarty->display('blog/articleUpdate.php');
+        } else if ($content === "") {
+            $smarty->assign('title', $content);
+            $smarty->assign('message', '內容格式錯誤');
+            return $smarty->display('blog/articleUpdate.php');
+        }
+        $userId = $_SESSION['userId'];
         $pdo = $this->pdo();
         if ($article['userId'] != $userId) {
             return header("Location: /blog/blog/index/1");
@@ -193,6 +200,10 @@ class BlogController extends Controller
         }
         // POST
         $content = htmlspecialchars($_POST['content']);
+        if ($content === ""){
+            echo false;
+            return;
+        }
         $userId = $_SESSION['userId'];
         $sql = <<<mutil
             select * from where id = "$id";

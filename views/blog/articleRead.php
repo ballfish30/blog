@@ -6,7 +6,7 @@
 </p>
 {{if $userId == $article.userId}}
 <p><a class="btn btn-submit floatRight" href="/blog/blog/articleUpdate/{{$article.id}}">修改文章</a></p>
-<p><a class="btn btn-submit floatRight" href="/blog/blog/articleDelete/{{$article.id}}">刪除文章</a></p>
+<p><a class="btn btn-submit floatRight articleDelete" href="/blog/blog/articleDelete/{{$article.id}}">刪除文章</a></p>
 {{/if}}
 <hr>
 <main role='main' class='container bootdey.com'>
@@ -67,9 +67,11 @@
                         $html += "</main>"
                     }
                     $("#comment").html($html);
+                    
                     $(".commentDelete").on("mousedown", function() {
                         $this = $(this);
-                        $.ajax({
+                        if (confirm("是否刪除")){
+                            $.ajax({
                                 type: "GET",
                                 url: "/blog/blog/commentDelete/" + $this.val(),
                             })
@@ -80,10 +82,21 @@
                                     alert('修改失敗')
                                 }
                             });
-                        return false;
+                        }else{
+                            return false;
+                        }
+                        
                     });
                 })
         }
+
+        $(".articleDelete").on("mousedown", function() {
+            $this = $(this);
+            if (!confirm("是否刪除")){
+                return false;
+            }
+            window.location = $this.attr('href');
+        });
 
         $('#exampleModal').on('show.bs.modal', function(event) {
             var button = $(event.relatedTarget) // Button that triggered the modal
